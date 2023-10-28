@@ -24,6 +24,15 @@ dependencies {
 
     // 타임리프
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    
+    // 스프링 시큐리티 스타터
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
+    // 스프링 시큐리티 타임리프
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-apringsecurity6'
+    
+    // 스프링 시큐리티 테스트
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {
