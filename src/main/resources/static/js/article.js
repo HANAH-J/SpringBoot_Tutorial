@@ -35,13 +35,13 @@ if (modifyButton) {
         })
         .then(() => {
             alert('수정이 완료되었습니다.');
-            location.replace(``/articles/${id}`);
+            location.replace(`/articles/${id}`);
         });
     });
 }
 
 // 등록 기능
-const creaeteButton - document.getElementById("create-btn"); // id가 create-btn인 엘리먼트
+const createButton = document.getElementById("create-btn"); // id가 create-btn인 엘리먼트
 
 if (createButton) {
 // 클릭 이벤트가 감지되면 생성 API 요청
