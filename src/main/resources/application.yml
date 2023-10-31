@@ -15,6 +15,10 @@ spring:
     username: sa
 
   # H2 콘솔 활성화
-  h2 :
+  h2:
     console:
       enabled: true
+
+jwt:
+  issuer: test@gmail.com
+  secret_key: study-springboot
