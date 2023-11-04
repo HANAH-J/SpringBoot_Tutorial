@@ -1,0 +1,256 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+ul, ol, li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	outline: 0;
+}
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #333;
+}
+main {
+	width: 100%;
+	height: 100vh;
+	background: #333;
+	display: flex; /*header와 section을 좌우 배치하기 위해 flex 설정*/
+}
+
+
+
+/*header*/
+main header {
+	width: 20%;
+	height: 100%;
+	padding: 10vh 5vw;
+	display: flex;
+	flex-wrap: wrap; /*세로로 줄 바꿈 되도록 처리*/
+	align-content: space-between; /*세로축은 상단 하단 양 끝으로 콘텐츠를 배치*/
+	justify-content: center; /*가로축은 가운데로 배치*/
+	position: relative;
+	z-index: 3; /*section 요소와 aside 팝업 요소보다 위에 배치하기 위해 3을 지정*/
+}
+main header section {
+	display: block;
+	width: 100%;
+	height: 6.5vw;
+	flex-direction: column;
+	justify-content: flex-start;
+	position: relative;
+	font-size: 0px; /*안쪽의 자간과 줄 높이를 초기화*/
+	color: #fff;
+}
+main header section a:nth-of-type(1) {
+	display: block;
+	width: 5vw;
+	height: 5vw;
+	position: absolute;
+	top: 0;
+}
+main header section a:nth-of-type(1) img {
+	width: 5vw;
+	height: 5vw;
+	position: relative;
+}
+main header section a:nth-of-type(2) {
+	display: block;
+	width: 100%;
+	height: 1.5vw;
+	position: absolute;
+	top: 5.25vw;
+	font-size: 1.5vw;
+	font-weight: bold;
+	line-height: 1.5vw;
+	color: #fff;
+}
+main header address {
+	font: normal 11px/1.2 "arial";
+	color: #888;
+}
+
+
+
+/*nav*/
+main nav {
+	position: absolute;
+	top: 10vh;
+	right: 5vw;
+	z-index: 3;
+}
+main nav ul {
+	display: flex; /*자식 li 요소를 좌우 배치되도록 설정*/
+}
+main nav ul li a {
+	font-size: 18px;
+	color: #bbb;
+	margin-right: 30px;
+}
+
+
+
+/*section*/
+main .board {
+	position: relative;
+	top: 20%;
+	width: 40%;
+	height: 70%;
+	display: flex;
+	z-index: 1;
+	overflow: auto;
+	font-family: 'Noto Sans KR';
+}
+main .board::-webkit-scrollbar {
+	width: 7px;				/* 스크롤바 너비 */
+}
+main .board::-webkit-scrollbar-thumb {
+    height: 50%;			/* 스크롤바 길이 */
+    background-color: #bbb;	/* 스크롤바 색상 */
+    border-radius: 10px;
+}
+main .board::-webkit-scrollbar-track {
+    background-color: #333;  /*스크롤바 배경 색상*/
+}
+main .board article {
+	position: relative;
+	flex: 1; /*모든 article 요소의 너비를 동등하게 적용*/
+	padding: 70px 40px 100px;
+}
+main .board article h1 {
+	position: relative;
+	top: -70px;
+	font-family: 'S-CoreDream-3Light';
+	font-size: 2em;
+	font-weight: lighter;
+	color: #fff;
+}
+main .board article p:nth-of-type(1), main .board article p:nth-of-type(2) {
+	position: relative;
+	display: inline;
+	top: -50px;
+	font-size: 1em;
+	color: #bbb;
+}
+main .board article .boardContent {
+	width: 100%;
+	height: 50%;
+	position: relative;
+	margin-top: 15px;
+	color: #fff;
+}
+
+
+
+/*section*/
+main .comment {
+	width: 30%;
+	height: 55%;
+	position: absolute;
+	top: 20%;
+	left: 63%;
+	overflow: auto;
+	font-family: 'Noto Sans KR';
+}
+main .comment form textarea {
+	border: 1px solid #fff;
+	width: 80%;
+	height: 100px;
+	padding: 15px;
+	margin-bottom: 30px;
+	resize: none;
+	outline: none;
+	background-color: #333;
+	font-family: inherit;
+	color: #fff;
+}
+main .comment form textarea::placeholder {
+	font-family: 'Noto Sans KR';
+	color: #fff;
+}
+main .comment form button {
+	border: 1px solid #fff;
+	width: 20%;
+	height: 100px;
+	float: right;
+	background-color: #fff;
+	font-size: 1em;
+	font-weight: bold;
+	color: #333;
+	cursor: pointer;
+}
+main .comment #commentList span:nth-of-type(1) {
+	font-size: 0.9em;
+	font-weight: bold;
+	color: #fff;
+}
+main .comment #commentList span:nth-of-type(2) {
+	font-size: 0.9em;
+	font-weight: lighter;
+	color: #fff;
+}
+main .comment #commentList button:nth-of-type(1) {
+	margin-left: 5px;
+}
+main .comment #commentList button {
+	border: 1px solid #fff;
+	width: 45px;
+	height: 25px;
+	outline: none;
+	background-color: #fff;
+	color: #333;
+	font-size: 0.9em;
+	font-weight: bold;
+	cursor: pointer;
+}
+main .comment #commentList textarea {
+	border: none;
+	width: 100%;
+	height: 50px;
+	margin-top: 10px;
+	padding: 10px;
+	resize: none;
+	outline: none;
+	background-color: #333;
+	color: #fff;
+	font-family: 'Noto Sans KR';
+}
+
+
+
+/*footer*/
+main footer {
+	width: 100%x;
+	height: 40px;
+	position: absolute;
+	right: 5%;
+	bottom: 90px;
+	overflow: hidden;
+}
+main footer a {
+	border: 1px solid #fff;
+	display: block;
+	width: 80px;
+	height: 40px;
+	float: left;
+	margin-left: 20px;
+	background-color: #fff;
+	font-size: 0.9em;
+	font-weight: bold;
+	text-align: center;
+	line-height: 40px;
+	color: #333;
+}

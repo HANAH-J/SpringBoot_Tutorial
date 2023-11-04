@@ -29,8 +29,8 @@
 
                 if(loginMember == null || loginMember.getName() == null) {
                 %>
-                <li><a href="bs?command=member_login_form">로그인</a></li>
-                <li><a href="bs?command=member_join_form">회원가입</a></li>
+                <li><a onclick="location.href='/login'">로그인</a></li>
+                <li><a onclick="location.href='/signup'">회원가입</a></li>
                 <%
                 }else {
                 %>
