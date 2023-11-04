@@ -2,40 +2,105 @@
 <html xmlns:th="http://www.thymeleaf.ofg">
 <head>
     <meta charset="UTF-8">
-    <title>블로그 글</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/
-bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>MY DUCK : READ</title>
+    <!-- favicon -->
+    <link rel="icon" href="img/favicon.ico" />
+    <!-- css -->
+    <link href="css/article.css" rel="stylesheet" />
 </head>
 <body>
-<div class="p-5 mb-5 text-center</> bg-light>">
-    <h1 class="mb-3">My Blog</h1>
-    <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
-</div>
+    <main>
+        <!-- header -->
+        <header>
+            <section>
+                <a href="bs?command=board_list"><img src="img/logo.png" alt="My Duck Logo"></a>
+                <a href="bs?command=board_list">MY&nbspDUCK</a>
+            </section>
+            <address>
+                2023 HANAH-J<br>ALL RIGHTS RESERVED.
+            </address>
+        </header>
 
-<div class="container mt-5">
-    <div class="row-5">
-        <div class="col-lg-8">
+
+
+        <!-- nav -->
+        <nav>
+            <ul>
+                <%
+                MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+
+                if(loginMember == null) {
+                %>
+                <li><a href="bs?command=member_login_form">로그인</a></li>
+                <li><a href="bs?command=member_join_form">회원가입</a></li>
+                <%
+                }else {
+                %>
+                <li><a th:text="|${article.author} 님|"></a></li>
+                <li><a href="bs?command=member_logout">로그아웃</a></li>
+                <li><a href="bs?command=board_write_form">글쓰기</a></li>
+                <%
+                }
+                %>
+            </ul>
+        </nav>
+
+
+
+        <!-- section - board -->
+        <section class="board">
             <article>
                 <input type="hidden" id="article-id" th:value="${article.id}">
-                <header class="mb-4">
-                    <h1 class="fw-bolder mb-1" th:text="${article.title}"></h1>
-                    <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.
-format(article.createdAt, 'yyyy-MM-dd HH:mm')} By ${article.author}|"></div>
-                </header>
-                <section class="mb-5">
-                    <p class="fs-5 mb-4" th:text="${article.content}"></p>
-                </section>
-                <button type="button" id="modify-btn"
-                        th:onclick="|location.href='@{/new-article?id={articleId}
-(articleId=${article.id})}'|"
-                        class="btn btn-primary btn-sm">수정</button>
-
-                <button type="button" id="delete-btn"
-                        class="btn btn-secondary btn-sm">삭제</button>
+                <h1 th:text="${article.title}"></h1>
+                <p th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
+                <p>조회수 ${bVo.readCount}</p>
+                <div class="boardContent">
+                    <p th:text="${article.content}"></p>
+                </div>
             </article>
-        </div>
-    </div>
-</div>
+        </section>
+
+
+
+        <!-- section - comment -->
+        <section class="comment">
+            <form>
+                <%
+                if(loginMember == null) {
+                %>
+
+                <%
+                }else {
+                %>
+                <textarea name="commentContent" id="commentContent" placeholder="댓글을 입력하세요"></textarea>
+                <button type="button" onclick="commentWrite()">완료</button>
+                <%
+                }
+                %>
+            </form>
+            <article id="commentList">
+                <c:forEach var="comment" items="${commentList}"></c:forEach>
+            </article>
+        </section>
+
+
+
+        <!-- footer -->
+        <footer>
+            <%
+            if(loginMember != null) {
+            %>
+            <a href="bs?command=board_update_form&boardNum=${bVo.boardNum}" id="modify-btn" class="btn"
+               th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|">수정</a>
+            <a href="bs?command=board_delete&boardNum=${bVo.boardNum}" id="delete-btn" class="btn">삭제</a>
+            <a href="bs?command=board_list" class="btn">목록</a>
+            <input type="hidden" name="boardNum" id="boardNum" value="${bVo.boardNum}">
+            <%
+            }
+            %>
+
+        </footer>
+    </main>
 </body>
 <script src="/js/article.js"></script> <!--article.js 파일 추가-->
 </html>

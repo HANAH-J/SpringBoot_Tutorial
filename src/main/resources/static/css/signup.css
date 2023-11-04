@@ -1,0 +1,107 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@100&display=swap");
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+	outline: 0;
+}
+
+
+
+/*body*/
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #333;
+}
+
+
+
+/*div*/
+div section {
+	display: flex;
+	width: 235px;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);;
+    text-align: center;
+    margin-top: 90px;
+}
+div section a {
+	display: inline-block;
+	position: relative;
+}
+div section a:nth-of-type(1) {
+	width: 4em;
+	height: 4em;
+}
+div section a:nth-of-type(1) img {
+	width: 4em;
+	height: 4em;
+}
+div section a:nth-of-type(2) {
+	position: relative;
+	margin-left: 15px;
+	font: normal 1 "arial";
+	font-size: 2em;
+	font-weight: bold;
+	line-height: 2em;
+	color: #fff;
+}
+
+
+
+/*form*/
+form {
+/*	border: 1px solid red;*/
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+	padding-top: 10px;
+    padding-left: 50px;
+}
+form span {
+	color: #bbb;
+}
+form table tr:nth-of-type(1) td input {
+	margin-top: 15px;
+	margin-bottom: 0;
+}
+form table tr:nth-of-type(1) td button {
+	border: none;
+	width: 60px;
+	height: 30px;
+	position: absolute;
+    margin-top: 27px;
+    margin-left: -75px;
+    background-color: transparent;
+    font: normal 0.9em "arial";
+    cursor: pointer;
+}
+form table tr td input {
+	width: 400px;
+    height: 55px;
+    position: relative;
+    margin-top: -3px;
+    padding-left: 10px;
+}
+form table tr td input:focus {
+	outline: none;
+}
+form table tr:nth-of-type(4) td input {
+	margin-top: 15px;
+}
+form table tr:nth-of-type(6) td button {
+	width: 400px;
+	height: 55px;
+	margin-top: 15px;
+	font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
