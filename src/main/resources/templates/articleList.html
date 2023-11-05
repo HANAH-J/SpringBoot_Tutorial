@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.ofg">
+<html xmlns:th="http://www.thymeleaf.ofg"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>MY DUCK</title>
@@ -13,8 +14,8 @@
         <!-- header -->
         <header>
             <section>
-                <a onclick="location.href='/articles'"><img src="img/logo.png" alt="MY DUCK logo"></a>
-                <a onclick="location.href='/articles'">MY DUCK</a>
+                <a href="/articles"><img src="img/logo.png" alt="MY DUCK logo"></a>
+                <a href="/articles">MY DUCK</a>
             </section>
             <address>2023 HANAH-J<br>ALL RIGHTS RESERVED.</address>
         </header>
@@ -24,22 +25,18 @@
         <!-- nav -->
         <nav>
             <ul>
-                <%
-                MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+                <th:block sec:authorize="isAnonymous()">
+                <!-- 인증 받지 않은 사용자 -->
+                <li><a href="/login">로그인</a></li>
+                <li><a href="/signup">회원가입</a></li>
+                </th:block>
 
-                if(loginMember == null || loginMember.getName() == null) {
-                %>
-                <li><a onclick="location.href='/login'">로그인</a></li>
-                <li><a onclick="location.href='/signup'">회원가입</a></li>
-                <%
-                }else {
-                %>
-                <li><a><%=loginMember.getName() %>님</a></li>
-                <li><a onclick="location.href='/logout'">로그아웃</a></li>
+                <th:block sec:authorize="isAuthenticated()">
+                <!-- 인증 받은 사용자 -->
+                <li><a>님</a></li>
+                <li><a href="/logout'">로그아웃</a></li>
                 <li><a id="create-btn" th:onclick="|location.href='@{/new-article}'|">글쓰기</a></li>
-                <%
-                }
-                %>
+                </th:block>
             </ul>
         </nav>
 
@@ -51,7 +48,7 @@
                 <div class="inner" th:onclick="|location.href='@{/articles/{id}(id=${item.id})}'|">
                     <div class="txt">
                         <h2 th:text="${item.title}"></h2>
-                        <p>${board.boardDate}</p>
+                        <p th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
                         <p th:text="${item.content}"></p>
                         <figure></figure>
                     </div>

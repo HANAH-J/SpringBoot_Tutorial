@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <title>MY DUCK : READ</title>
     <!-- favicon -->
-    <link rel="icon" href="img/favicon.ico" />
+    <link rel="icon" href="/img/favicon.ico" />
     <!-- css -->
-    <link href="css/article.css" rel="stylesheet" />
+    <link href="/css/article.css" rel="stylesheet" />
 </head>
 <body>
     <main>
         <!-- header -->
         <header>
             <section>
-                <a href="bs?command=board_list"><img src="img/logo.png" alt="My Duck Logo"></a>
-                <a href="bs?command=board_list">MY&nbspDUCK</a>
+                <a href="/articles"><img src="/img/logo.png" alt="My Duck Logo"></a>
+                <a href="/articles">MY&nbspDUCK</a>
             </section>
             <address>
                 2023 HANAH-J<br>ALL RIGHTS RESERVED.
@@ -26,22 +26,11 @@
         <!-- nav -->
         <nav>
             <ul>
-                <%
-                MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
-
-                if(loginMember == null) {
-                %>
                 <li><a href="bs?command=member_login_form">로그인</a></li>
                 <li><a href="bs?command=member_join_form">회원가입</a></li>
-                <%
-                }else {
-                %>
                 <li><a th:text="|${article.author} 님|"></a></li>
                 <li><a href="bs?command=member_logout">로그아웃</a></li>
                 <li><a href="bs?command=board_write_form">글쓰기</a></li>
-                <%
-                }
-                %>
             </ul>
         </nav>
 
@@ -90,10 +79,10 @@
             <%
             if(loginMember != null) {
             %>
-            <a href="bs?command=board_update_form&boardNum=${bVo.boardNum}" id="modify-btn" class="btn"
+            <a id="modify-btn" class="btn"
                th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|">수정</a>
-            <a href="bs?command=board_delete&boardNum=${bVo.boardNum}" id="delete-btn" class="btn">삭제</a>
-            <a href="bs?command=board_list" class="btn">목록</a>
+            <a id="delete-btn" class="btn">삭제</a>
+            <a href="/articles" class="btn">목록</a>
             <input type="hidden" name="boardNum" id="boardNum" value="${bVo.boardNum}">
             <%
             }

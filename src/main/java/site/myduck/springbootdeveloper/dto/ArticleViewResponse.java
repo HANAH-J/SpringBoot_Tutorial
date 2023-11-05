@@ -12,8 +12,8 @@ public class ArticleViewResponse {
 
     private Long id;
     private String title;
-    private String author;
     private String content;
+    private String author;
     private LocalDateTime createdAt;
 
     public ArticleViewResponse(Article article) {
