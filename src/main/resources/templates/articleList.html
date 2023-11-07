@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.ofg"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 <head>
     <meta charset="UTF-8">
     <title>MY DUCK</title>
@@ -25,17 +25,17 @@
         <!-- nav -->
         <nav>
             <ul>
+                <!-- 로그인 하지 않은 사용자 -->
                 <th:block sec:authorize="isAnonymous()">
-                <!-- 인증 받지 않은 사용자 -->
-                <li><a href="/login">로그인</a></li>
-                <li><a href="/signup">회원가입</a></li>
+                    <li><a href="/login">로그인</a></li>
+                    <li><a href="/signup">회원가입</a></li>
                 </th:block>
 
+                <!-- 로그인 한 사용자 -->
                 <th:block sec:authorize="isAuthenticated()">
-                <!-- 인증 받은 사용자 -->
-                <li><a>님</a></li>
-                <li><a href="/logout'">로그아웃</a></li>
-                <li><a id="create-btn" th:onclick="|location.href='@{/new-article}'|">글쓰기</a></li>
+                    <li><a>님</a></li>
+                    <li><a href="/logout'">로그아웃</a></li>
+                    <li><a id="create-btn" th:onclick="|location.href='@{/new-article}'|">글쓰기</a></li>
                 </th:block>
             </ul>
         </nav>

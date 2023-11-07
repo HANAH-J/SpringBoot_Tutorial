@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.ofg">
+<html xmlns:th="http://www.thymeleaf.ofg"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 <head>
     <meta charset="UTF-8">
     <title>MY DUCK : READ</title>
@@ -26,11 +27,18 @@
         <!-- nav -->
         <nav>
             <ul>
-                <li><a href="bs?command=member_login_form">로그인</a></li>
-                <li><a href="bs?command=member_join_form">회원가입</a></li>
-                <li><a th:text="|${article.author} 님|"></a></li>
-                <li><a href="bs?command=member_logout">로그아웃</a></li>
-                <li><a href="bs?command=board_write_form">글쓰기</a></li>
+                <!-- 로그인 하지 않은 사용자 -->
+                <th:block sec:authorize="isAnonymous()">
+                    <li><a href="bs?command=member_login_form">로그인</a></li>
+                    <li><a href="bs?command=member_join_form">회원가입</a></li>
+                </th:block>
+
+                <!-- 로그인 한 사용자 -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <li><a th:text="|${article.author} 님|"></a></li>
+                    <li><a href="bs?command=member_logout">로그아웃</a></li>
+                    <li><a href="bs?command=board_write_form">글쓰기</a></li>
+                </th:block>
             </ul>
         </nav>
 

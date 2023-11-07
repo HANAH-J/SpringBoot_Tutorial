@@ -11,8 +11,8 @@
 <body class="gradient-custom">
     <div>
         <section>
-            <a href="bs?command=board_list"><img src="img/logo.png"></a>
-            <a href="bs?command=board_list">MY DUCK</a>
+            <a href="/articles"><img src="img/logo.png"></a>
+            <a href="/articles">MY DUCK</a>
         </section>
     </div>
 
@@ -22,7 +22,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="email" name="email" placeholder="이메일" autocomplete="off" required>
+                    <input type="email" id="email" name="email" placeholder="이메일" autocomplete="off" required>
                     <input type="hidden" name="reId"> <!-- 중복체크 -->
                     <button type="button" onclick="checkId()">중복체크</button>
                 </td>
@@ -42,9 +42,16 @@
             <tr>
                 <td colspan="2">
                     <button type="submit">회원가입</button>
+                    <a href="/oauth2/authorization/google">
+                        <img src="/img/google.png">
+                    </a>
                 </td>
+
             </tr>
         </table>
     </form>
+
+    <!-- script -->
+    <script src="js/user.js"></script>
 </body>
 </html>
