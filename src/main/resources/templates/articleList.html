@@ -43,7 +43,7 @@
 
 
         <!-- section -->
-        <section th:each="item : ${articles}">
+        <section th:each="item : ${articlePages}">
             <article>
                 <div class="inner" th:onclick="|location.href='@{/articles/{id}(id=${item.id})}'|">
                     <div class="txt">
@@ -78,45 +78,25 @@
         <!-- pagination -->
         <footer>
             <ul>
-                <c:if test="${totalCnt != null}">
-                    <c:choose>
-                        <c:when test="${totalCnt > 20}"> <!-- 최대 게시글 개수가 20개 이상인 경우 -->
-                            <c:if test="${(section *20) < totalCnt}"> <!-- 다음 섹션이 존재하는 경우 -->
-                                <c:forEach var="page" begin="1" end="5" step="1">
-                                    <!-- 이전 섹션 가기 버튼 -->
-                                    <c:if test="${section > 1 && page == 1}">
-                                        <li><a href="bs?command=board_list&section=${section-1}&pageNum=10"> 이전 </a></li>
-                                    </c:if>
-                                    <li><a href="bs?command=board_list&section=${section}&pageNum=${page}">${(section-1)*4+page}</a></li>
-                                    <!-- 다음 섹션 가기 버튼 -->
-                                    <c:if test="${page == 5}">
-                                        <li><a href="bs?command=board_list&section=${section+1}&pageNum=1"> 다음 </a></li>
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                            <c:if test="${(section *20) >= totalCnt}"> <!-- 다음 섹션이 존재하지 않는 경우 -->
-                                <c:forEach var="page" begin="1" end="${((totalCnt+3)-(section-1)*20)/4}" step="1">
-                                    <!-- 이전 섹션 가기 버튼 -->
-                                    <c:if test="${section > 1 && page == 1}">
-                                        <li><a class="page-link" href="bs?command=board_list&section=${section-1}&pageNum=5"> 이전 </a></li>
-                                    </c:if>
-                                    <li><a href="bs?command=board_list&section=${section}&pageNum=${page}">${(section-1)*4+page}</a></li>
-                                    <!-- 다음 섹션 가기 버튼 X -->
-                                </c:forEach>
-                            </c:if>
-                        </c:when>
-                        <c:when test="${totalCnt == 20}"> <!-- 최대 게시글이 20개인 경우 : 섹션 1개, 페이지번호 1 ~ 5까지 -->
-                            <c:forEach var="page" begin="1" end="5" step="1">
-                                <li><a href="bs?command=board_list&section=${section}&pageNum=${page}">${(section-1)*4+page}</a></li>
-                            </c:forEach>
-                        </c:when>
-                        <c:when test="${totalCnt < 20}"> <!-- 최대 게시글이 20개 미만인 경우 : 섹션 1개, 페이지번호 5보다 적은 수까지 -->
-                            <c:forEach var="page" begin="1" end="${(totalCnt +3)/4}" step="1">
-                                <li><a href="bs?command=board_list&section=${section}&pageNum=${page}">${page}</a></li>
-                            </c:forEach>
-                        </c:when>
-                    </c:choose>
-                </c:if>
+                <!-- 첫 페이지로 이동 -->
+                <li><a th:href="@{/articles(page=1)}"> << </a></li>
+
+                <!-- 이전 페이지 버튼 -->
+                <li><a th:href="${articlePages.first} ? '#' : @{/articles(page=${articlePages.number})}"> < </a></li>
+
+                <!-- 페이지 번호 버튼 (현재 페이지는 이동 無) -->
+                <li th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                    <span th:if="${page == articlePages.number + 1}" th:text="${page}" class="current_page"></span>
+                    <span th:unless="${page == articlePages.number + 1}">
+                        <a th:href="@{/articles(page=${page})}" th:text="${page}"></a>
+                    </span>
+                </li>
+
+                <!-- 다음 페이지 버튼 -->
+                <li><a th:href="${articlePages.last} ? '#' : @{/articles(page=${articlePages.number + 2})}"> > </a><li>
+
+                <!-- 마지막 페이지로 이동 -->
+                <li><a th:href="@{/articles(page=${articlePages.totalPages})}"> >> </a></li>
             </ul>
         </footer>
     </main>

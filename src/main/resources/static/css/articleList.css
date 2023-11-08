@@ -289,3 +289,7 @@ main footer ul li a {
 	margin-left: 20px;
 	color: #bbb;
 }
+main footer ul li .current_page {
+    margin-left: 20px;
+    color: #fff;
+}

@@ -2,10 +2,15 @@ package site.myduck.springbootdeveloper.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import site.myduck.springbootdeveloper.domain.Article;
 import site.myduck.springbootdeveloper.dto.AddArticleRequest;
+import site.myduck.springbootdeveloper.dto.ArticleListViewResponse;
 import site.myduck.springbootdeveloper.dto.UpdateArticleRequest;
 import site.myduck.springbootdeveloper.repository.BlogRepository;
 
@@ -60,6 +65,20 @@ public class BlogService {
         if (!article.getAuthor().equals(userName)) {
             throw new IllegalArgumentException("not authorized");
         }
+    }
+
+    // 페이징 처리
+    public Page<ArticleListViewResponse> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 4; // 하나의 페이지에 보여줄 게시글의 개수
+
+        // 한 페이지 당 5개의 게시글을 보여주고 ID를 기준으로 내림차순 정렬
+        Page<Article> articlePages = blogRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+
+        Page<ArticleListViewResponse> articleListViewResponses = articlePages.map(
+                articlePage -> new ArticleListViewResponse(articlePage));
+
+        return articleListViewResponses;
     }
 
 }
