@@ -42,7 +42,7 @@ if (modifyButton) {
             location.replace("/articles/" + id);
         }
 
-        httpRequest("PUT", "/api/artucles/" + id, body, success, fail);
+        httpRequest("PUT", "/api/articles/" + id, body, success, fail);
     });
 }
 
@@ -52,6 +52,7 @@ const createButton = document.getElementById("create-btn"); // id가 create-btn�
 if (createButton) {
 // 클릭 이벤트가 감지되면 생성 API 요청
     createButton.addEventListener('click', event => {
+    console.log('버튼' + createButton);
         body = JSON.stringify({
             title: document.getElementById("title").value,
             content: document.getElementById("content").value,

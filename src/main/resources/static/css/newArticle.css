@@ -1,0 +1,109 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@100&display=swap");
+@font-face {font-family:MalgunGothic; src:url(images/MalgunGothic.eot);}
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+a {
+	text-decoration: none;
+	outline: 0;
+}
+
+
+
+/*body*/
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #333;
+}
+
+
+
+/*div*/
+div section {
+	display: flex;
+	width: 260px;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);;
+    text-align: center;
+    margin-top: 90px;
+}
+div section a {
+	display: inline-block;
+	position: relative;
+}
+div section a:nth-of-type(1) {
+	width: 4.6em;
+	height: 4.6em;
+}
+div section a:nth-of-type(1) img {
+	width: 4.6em;
+	height: 4.6em;
+}
+div section a:nth-of-type(2) {
+	position: relative;
+	margin-left: 15px;
+	font-family:'Malgun Gothic' !important; 
+	font-size: 2.28em;
+	font-weight: bold;
+	line-height: 2em;
+	color: #fff;
+}
+div section a:nth-of-type(2):hover {
+	text-decoration: none;
+}
+
+
+
+/*form*/
+form {
+    width: 1100px;
+    height: 700px;
+    position: absolute;
+    left: 50%;
+    margin-left: -550px;
+    padding-top: 25px;
+}
+form h2 {
+	color: #bbb;
+}
+form table tr:nth-of-type(1) td input:focus {
+	outline: none;
+}
+form table tr:nth-of-type(1) td input {
+	border: none;
+	width: 1100px;
+	height: 50px;
+	margin-bottom: 15px;
+	padding: 0px 10px;
+	background-color: #333;
+	font: normal 2em "arial";
+	color: #bbb;
+	caret-color: #bbb;
+}
+form table tr:nth-of-type(2) td textarea {
+    width: 1100px;
+    height: 500px;
+    position: relative;
+    resize: none;
+}
+form table tr:nth-of-type(3){
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+form table tr:nth-of-type(3) td button {
+	border-radius: 0;
+	width: 90px;
+	height: 40px;
+	margin-bottom: -12px;
+	margin-left: 12px;
+	background-color: #fff;
+	font: normal 1em "arial";
+	font-weight: bold;
+	color: #333;
+}

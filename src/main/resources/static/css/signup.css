@@ -94,10 +94,7 @@ form table tr td input {
 form table tr td input:focus {
 	outline: none;
 }
-form table tr:nth-of-type(4) td input {
-	margin-top: 15px;
-}
-form table tr:nth-of-type(6) td button {
+form table tr:nth-of-type(5) td button {
 	width: 400px;
 	height: 55px;
 	margin-top: 15px;
