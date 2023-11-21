@@ -26,6 +26,11 @@ public class BlogService {
     public Article save(AddArticleRequest request, String userName) {
         return blogRepository.save(request.toEntity(userName));
     }
+    
+    // 조회수 증가 메서드
+    public Article save(Article article) {
+        return blogRepository.save(article);
+    }
 
     // 글 목록 조회 메서드
     public List<Article> findAll() {
@@ -80,5 +85,4 @@ public class BlogService {
 
         return articleListViewResponses;
     }
-
 }

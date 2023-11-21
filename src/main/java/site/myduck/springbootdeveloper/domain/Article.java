@@ -29,19 +29,29 @@ public class Article {
     @Column(name = "author", nullable = false)
     private String author;
 
-    @CreatedDate // 엔티티가 생성될 때 생성 시간 저장
+    @Column(name = "read_count", nullable = false)
+    private int read_count;
+
     @Column(name = "created_at")
+    @CreatedDate // 엔티티가 생성될 때 생성 시간 저장
     private LocalDateTime createdAt;
 
-    @LastModifiedDate // 엔티티가 수정될 때 수정 시간 저장
     @Column(name = "updated_at")
+    @LastModifiedDate // 엔티티가 수정될 때 수정 시간 저장
     private LocalDateTime updatedAt;
 
+    public void setRead_count(int read_count) {
+        this.read_count = read_count;
+    }
+
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content, String author) {
+    public Article(String title, String content, String author, int read_count, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.read_count = read_count;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public void update(String title, String content) {

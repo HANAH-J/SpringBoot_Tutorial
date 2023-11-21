@@ -7,6 +7,8 @@ import site.myduck.springbootdeveloper.domain.User;
 import site.myduck.springbootdeveloper.dto.AddUserRequest;
 import site.myduck.springbootdeveloper.repository.UserRepository;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -31,5 +33,10 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    public boolean existEmail(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        return userOptional.isPresent();
     }
 }

@@ -7,8 +7,10 @@
     <link rel="icon" href="img/favicon.ico" />
     <!-- css -->
     <link href="css/signup.css" rel="stylesheet" />
+    <!-- JavaScript -->
+    <script src="/js/emailCheck.js"></script>
 </head>
-<body class="gradient-custom">
+<body>
     <div>
         <section>
             <a href="/articles"><img src="img/logo.png"></a>
@@ -23,15 +25,15 @@
             <tr>
                 <td>
                     <input type="email" id="email" name="email" placeholder="이메일" autocomplete="off" required>
-                    <input type="hidden" name="reId"> <!-- 중복체크 -->
-                    <button type="button" onclick="checkId()">중복체크</button>
+                    <button type="button" onclick="emailCheck()">중복체크</button>
+                    <p id="emailCheck"></p><!-- 중복체크 -->
                 </td>
             </tr>
             <tr>
-                <td><input type="password" name="password" placeholder="비밀번호" required></td>
+                <td><input type="password" name="password" placeholder="비밀번호" required autocomplete="new-password"></td>
             </tr>
             <tr>
-                <td><input type="password" name="rePw" placeholder="비밀번호 확인" required></td>
+                <td><input type="password" name="rePw" placeholder="비밀번호 확인" required autocomplete="new-password"></td>
             </tr>
             <tr>
                 <td><input type="text" name="nickname" placeholder="닉네임" autocomplete="off" required></td>
@@ -47,8 +49,5 @@
             </tr>
         </table>
     </form>
-
-    <!-- script -->
-    <script src="js/user.js"></script>
 </body>
 </html>

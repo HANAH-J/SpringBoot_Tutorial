@@ -50,7 +50,7 @@
                 <input type="hidden" id="article-id" th:value="${article.id}">
                 <h1 th:text="${article.title}"></h1>
                 <p th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
-                <p>조회수 ${bVo.readCount}</p>
+                <p th:text="'조회수 ' + ${article.read_count}"></p>
                 <div class="boardContent">
                     <p th:text="${article.content}"></p>
                 </div>

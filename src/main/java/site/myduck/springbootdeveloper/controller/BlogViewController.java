@@ -46,6 +46,14 @@ public class BlogViewController {
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
         Article article = blogService.findById(id);
+
+        // 조회수 증가
+        article.setRead_count(article.getRead_count() + 1);
+
+        // 증가된 조회수로 업데이트된 Article 저장
+        blogService.save(article);
+
+
         model.addAttribute("article", new ArticleViewResponse(article));
 
         return "article";
