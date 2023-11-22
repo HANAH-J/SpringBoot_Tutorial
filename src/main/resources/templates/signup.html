@@ -9,6 +9,7 @@
     <link href="css/signup.css" rel="stylesheet" />
     <!-- JavaScript -->
     <script src="/js/emailCheck.js"></script>
+    <script src="/js/passwordCheck.js"></script>
 </head>
 <body>
     <div>
@@ -33,7 +34,10 @@
                 <td><input type="password" name="password" placeholder="비밀번호" required autocomplete="new-password"></td>
             </tr>
             <tr>
-                <td><input type="password" name="rePw" placeholder="비밀번호 확인" required autocomplete="new-password"></td>
+                <td>
+                    <input type="password" name="rePw" placeholder="비밀번호 확인" required autocomplete="new-password" onkeyup="passwordCheck()">
+                    <p id="passwordCheckMessage"></p><!-- 비밀번호 일치 여부 메시지 -->
+                </td>
             </tr>
             <tr>
                 <td><input type="text" name="nickname" placeholder="닉네임" autocomplete="off" required></td>

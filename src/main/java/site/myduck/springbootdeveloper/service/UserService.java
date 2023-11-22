@@ -22,6 +22,7 @@ public class UserService {
                 .email(dto.getEmail())
                 // 패스워드 암호화
                 .password(encoder.encode(dto.getPassword()))
+                .nickname(dto.getNickname())
                 .build()).getId();
     }
 
