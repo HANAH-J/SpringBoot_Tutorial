@@ -1,8 +1,10 @@
 package site.myduck.springbootdeveloper.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import site.myduck.springbootdeveloper.domain.Role;
 import site.myduck.springbootdeveloper.domain.User;
 import site.myduck.springbootdeveloper.dto.AddUserRequest;
 import site.myduck.springbootdeveloper.repository.UserRepository;
@@ -10,34 +12,23 @@ import site.myduck.springbootdeveloper.repository.UserRepository;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
-    public Long save(AddUserRequest dto) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    public void signUp(AddUserRequest dto) throws Exception {
 
-        return userRepository.save(User.builder()
-                .email(dto.getEmail())
-                // 패스워드 암호화
-                .password(encoder.encode(dto.getPassword()))
-                .nickname(dto.getNickname())
-                .build()).getId();
-    }
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new Exception("이미 존재하는 이메일입니다.");
+        }
 
-    public User findById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
-    }
-
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
-    }
-
-    public boolean existEmail(String email) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-        return userOptional.isPresent();
+        userRepository.save(User.builder()
+                                .email(dto.getEmail())
+                                .password(encoder.encode(dto.getPassword()))
+                                .role(Role.USER)
+                                .build());
     }
 }

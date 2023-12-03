@@ -1,22 +1,16 @@
 package site.myduck.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
+import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
+@Builder
 @Entity
-public class User implements UserDetails { // UserDetails를 상속받아 인증 객체로 사용
+public class User { // UserDetails를 상속받아 인증 객체로 사용
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,65 +23,30 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
     @Column(name = "password")
     private String password;
 
-    // 사용자 이름
     @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Builder
-    public User(String email, String password, String nickname) {
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-    }
-    
-    @Override // 권한 반환
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
-    }
-    
-    // 사용자의 id를 반환(고유한 값)
-    @Override
-    public String getUsername() {
-        return email;
-    }
-    
-    // 사용자의 패스워드를 반환
-    @Override
-    public String getPassword() {
-        return password;
-    }
-    
-    // 계정 만료 여부 반환
-    @Override
-    public boolean isAccountNonExpired() {
-        // 만료되었는지 확인하는 로직
-        return true; // true -> 만료 X
-    }
-    
-    // 계정 잠금 여부 반환
-    @Override
-    public boolean isAccountNonLocked() {
-        // 계정 잠금되었는지 확인하는 로직
-        return true; // true -> 잠금 X
-    }
-    
-    // 패스워드 만료 여부 반환
-    @Override
-    public boolean isCredentialsNonExpired() {
-        // 패스워드가 만료되었는지 확인하는 로직
-        return true; // true -> 만료 X
-    }
-    
-    // 계정 사용 가능 여부 반환
-    @Override
-    public boolean isEnabled() {
-        // 계정이 사용 가능한지 확인하는 로직
-        return true; // true -> 사용 가능
+    @Enumerated(EnumType.STRING)
+    private Provider provider;  // 소셜 로그인 플랫폼 : google *일반 로그인의 경우 null
+
+    private String providerId;  // 소셜 로그인 식별자 *일반 로그인의 경우 null
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private String refreshToken;
+
+    // 사용자 권한 설정
+    public void authorizeUser() {
+        this.role = Role.USER;
     }
 
-    // 사용자 이름 변경
-    public User update(String nickname) {
-        this.nickname = nickname;
-        return this;
+    // 비밀번호 암호화
+    public void passwordEncode(BCryptPasswordEncoder encoder) {
+        this.password = encoder.encode(this.password);
+    }
+
+    public void updateRefreshToken(String updateRefreshToken) {
+        this.refreshToken = updateRefreshToken;
     }
 }

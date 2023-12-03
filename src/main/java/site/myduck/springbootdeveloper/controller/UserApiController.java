@@ -21,6 +21,12 @@ public class UserApiController {
 
     private final UserService userService;
 
+    @PostMapping("/sign-up")
+    public String signUp(@RequestBody AddUserRequest dto) throws Exception {
+        userService.signUp(dto);
+        return "회원가입 성공!";
+    }
+
     @PostMapping("/emailCheck")
     public Map<String, Boolean> emailCheck(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");

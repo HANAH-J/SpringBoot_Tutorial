@@ -34,15 +34,15 @@ public class JwtFactory {
     }
 
     // jjwt 라이브러리를 사용하여 JWT 토큰 생성
-    public String createToken(JwtProperties jwtProperties) {
+    public String createToken(JwtService jwtService) {
         return Jwts.builder()
                 .setSubject(subject)
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setIssuer(jwtProperties.getIssuer())
+                .setIssuer(jwtService.getIssuer())
                 .setIssuedAt(issuedAt)
                 .setExpiration(expiration)
                 .addClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
+                .signWith(SignatureAlgorithm.HS256, jwtService.getSecretKey())
                 .compact();
     }
 }

@@ -23,7 +23,7 @@ public class TokenProviderTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private JwtProperties jwtProperties;
+    private JwtService jwtService;
 
     // generateToken() 검증 테스트
     @DisplayName("generateToken(): 유저 정보와 만료 기간을 전달해 토큰을 만들 수 있다.")
@@ -40,7 +40,7 @@ public class TokenProviderTest {
 
         // then
         Long userId = Jwts.parser()
-                .setSigningKey(jwtProperties.getSecretKey())
+                .setSigningKey(jwtService.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody()
                 .get("id", Long.class);
@@ -56,7 +56,7 @@ public class TokenProviderTest {
         String token = JwtFactory.builder()
                 .expiration(new Date(new Date().getTime() - Duration.ofDays(7).toMillis()))
                 .build()
-                .createToken(jwtProperties);
+                .createToken(jwtService);
 
         // when
         boolean result = tokenProvider.validToken(token);
@@ -69,7 +69,7 @@ public class TokenProviderTest {
     @Test
     void validToken_validToken() {
         // given
-        String token = JwtFactory.withDefaultValues().createToken(jwtProperties);
+        String token = JwtFactory.withDefaultValues().createToken(jwtService);
 
         // when
         boolean result = tokenProvider.validToken(token);
@@ -87,7 +87,7 @@ public class TokenProviderTest {
         String token = JwtFactory.builder()
                 .subject(userEmail)
                 .build()
-                .createToken(jwtProperties);
+                .createToken(jwtService);
 
         // when
         Authentication authentication = tokenProvider.getAuthentication(token);
@@ -105,7 +105,7 @@ public class TokenProviderTest {
         String token = JwtFactory.builder()
                 .claims(Map.of("id", userId))
                 .build()
-                .createToken(jwtProperties);
+                .createToken(jwtService);
 
         // when
         Long userIdByToken = tokenProvider.getUserId(token);

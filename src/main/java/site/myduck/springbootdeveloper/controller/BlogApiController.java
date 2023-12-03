@@ -26,6 +26,7 @@ public class BlogApiController {
                                               Principal principal) {
         Article saveArticle = blogService.save(request, principal.getName());
 
+        System.out.println("등록완료?");
         // 요청한 자원이 성공적으로 생성되어 저장된 블로그 글 정보를 응답 객체에 담아 전송
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(saveArticle);

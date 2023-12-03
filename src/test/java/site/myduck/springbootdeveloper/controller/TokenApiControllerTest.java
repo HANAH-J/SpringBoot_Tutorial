@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import site.myduck.springbootdeveloper.config.jwt.JwtFactory;
-import site.myduck.springbootdeveloper.config.jwt.JwtProperties;
 import site.myduck.springbootdeveloper.domain.RefreshToken;
 import site.myduck.springbootdeveloper.domain.User;
 import site.myduck.springbootdeveloper.dto.CreateAccessTokenRequest;
@@ -36,7 +35,7 @@ public class TokenApiControllerTest {
     @Autowired
     private WebApplicationContext context;
     @Autowired
-    JwtProperties jwtProperties;
+    JwtService jwtService;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -63,7 +62,7 @@ public class TokenApiControllerTest {
         String refreshToken = JwtFactory.builder()
                 .claims(Map.of("id", testUser.getId()))
                 .build()
-                .createToken(jwtProperties);
+                .createToken(jwtService);
 
         refreshTokenRepository.save(new RefreshToken(testUser.getId(), refreshToken));
 
