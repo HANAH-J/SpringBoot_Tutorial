@@ -19,7 +19,7 @@
         </section>
     </div>
 
-    <form th:action="@{/user}" method="POST">
+    <form th:action="@{/signup}" method="POST">
         <!-- 토큰을 추가하여 CSRF 공격 방지 -->
         <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
         <table>

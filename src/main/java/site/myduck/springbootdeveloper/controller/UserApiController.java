@@ -31,10 +31,10 @@ public class UserApiController {
     public Map<String, Boolean> emailCheck(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");
 
-        boolean isDuplicate = userService.existEmail(email);
+//        boolean isDuplicate = userService.existEmail(email);
 
         Map<String, Boolean> response = new HashMap<>();
-        response.put("duplicate", isDuplicate);
+//        response.put("duplicate", isDuplicate);
 
         return response;
     }
